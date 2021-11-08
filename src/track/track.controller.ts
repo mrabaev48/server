@@ -20,23 +20,14 @@ export class TrackController {
 
   @Post()
   @UseInterceptors(
-    FileFieldsInterceptor(
-      [
-        { name: 'picture', maxCount: 1 },
-        { name: 'audio', maxCount: 1 },
-      ],
-      {
-        limits: {
-          fieldNameSize: 50000,
-          fileSize: 50000,
-          fieldSize: 50000,
-        },
-      },
-    ),
+    FileFieldsInterceptor([
+      { name: 'picture', maxCount: 1 },
+      { name: 'audio', maxCount: 1 },
+    ]),
   )
   create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
     console.log('FILES: ', files);
-    return this.trackService.create(dto);
+    return this.trackService.create(dto, '', '');
   }
 
   @Get()
